@@ -22,10 +22,10 @@ def _parse_post(post_el):
     except Exception as e:
         logger.exception(e)
     return {
-        "date": epoch,
+        "dt": epoch,
         "post_title": post_title,
         "post_url": post_url,
-        "contents": post_contents,
+        "post_contents": post_contents,
         "forum_name": FORUM_NAME,
     }
 
