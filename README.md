@@ -10,17 +10,15 @@ All the posts get pulled out into a common schema:
 forum_name: str
 post_title: str  (name/title of the post)
 post_url: str  (url to the post)
-contents: str  (what I actually said)
-date: epoch datetime
+post_contents: str  (what I actually said)
+dt: epoch datetime
 ```
 
 To be used as historical data as part of [HPI](https://github.com/seanbreckenridge/HPI)
 
 Based on code from [`steamscraper`](https://github.com/seanbreckenridge/steamscraper)
 
----
-
-`minecraft_forum.py`
+As an example; `minecraft_forum.py`
 
 ```
 python3 ./minecraft_forum.py <username> --to-file ./minecraft_forum.json
