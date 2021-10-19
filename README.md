@@ -6,9 +6,11 @@ The bit of lib code here pulls CSS selectors from a config file to detect/parse 
 
 The forum posts are loaded from JSON files created by `./selenium_scripts`, while forum achievements are parsed from the raw HTML pages (i.e., by right click and `save as`ing a page, so that its possible to update)
 
+This is quite a personal library, as generalizing this to any amount of sites isn't trivial, though the [`achievements` portion](./old_forums/achievements.py) of the library could possibly be re-used, if you have some webscraping know-how
+
 ## Installation
 
-Requires `python3.6+`
+Requires `python3.7+`
 
 To install with pip, run:
 

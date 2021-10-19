@@ -1,7 +1,7 @@
 import io
 from setuptools import setup, find_packages
 
-requirements = ["beautifulsoup4"]
+requirements = ["bs4", "dateparser", "autotui"]
 
 # Use the README.md content for the long description:
 with io.open("README.md", encoding="utf-8") as fo:
