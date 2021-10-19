@@ -1,6 +1,20 @@
-# forum_parser
+# old_forums
 
-Parses post/metadata from random forums I used in the past. I don't use any of these anymore, but they contain random thoughts I had back then, so parsing them so I have access to them.
+Parses posts/achievements from random forums I used in the past. I don't use any of these anymore, but they contain random thoughts I had back then, so parsing them so I have access to them
+
+The bit of lib code here pulls CSS selectors from a config file to detect/parse achievement pages. Used in [HPI](https://github.com/seanbreckenridge/HPI/blob/master/my/old_forums.py)
+
+The forum posts are loaded from JSON files created by `./selenium_scripts`, while forum achievements are parsed from the raw HTML pages (i.e., by right click and `save as`ing a page, so that its possible to update)
+
+## Installation
+
+Requires `python3.6+`
+
+To install with pip, run:
+
+    pip install git+https://github.com/seanbreckenridge/old_forums
+
+### selenium_scripts
 
 Putting these up here as reference. I have so little posts on some of these that didn't have to worry about pagination.
 
@@ -13,8 +27,6 @@ post_url: str  (url to the post)
 post_contents: str  (what I actually said)
 dt: epoch datetime
 ```
-
-To be used as historical data as part of [HPI](https://github.com/seanbreckenridge/HPI)
 
 Based on code from [`steamscraper`](https://github.com/seanbreckenridge/steamscraper)
 
@@ -36,4 +48,3 @@ Hit enter when the page is ready >
 [D 200903 17:19:30 minecraft_forum:49] getting next page...
 [D 200903 17:19:39 minecraft_forum:52] done, writing to file...
 ```
-
