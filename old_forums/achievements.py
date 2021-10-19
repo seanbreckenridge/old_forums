@@ -8,6 +8,7 @@ from autotui import namedtuple_sequence_load
 
 
 # As generic of an approach as I can manage without site specific code
+# For example of usage of this, see https://github.com/seanbreckenridge/HPI/blob/master/my/old_forums.py
 
 
 class AchievementSelector(NamedTuple):
@@ -17,6 +18,20 @@ class AchievementSelector(NamedTuple):
     and which CSS selectors to use to extract the information out of the HTML
     page. A path to that file is specified with the OLD_FORUMS_SELECTORS
     environment variable
+
+    As an example of the file passed to load_from_blob, if you had just the one achievement page:
+    [
+        {
+            "detector": "a[href*=\"somesite.com\"]",
+            "site": "somesite.com",
+            "achievement_container": "div.achievement",
+            "achieved_filter": ".active",
+            "achievement_name": "h2.title",
+            "achievement_desc": ".description",
+            "achievement_earned_at": ".date",
+            "achievement_attribute": "data-title"
+        }
+    ]
     """
 
     detector: str  # some CSS selector which should only appear on this page, to detect which HTML file we're using
@@ -28,10 +43,13 @@ class AchievementSelector(NamedTuple):
     achievement_earned_at: str  # CSS selector for when this was earned
     # often exact dates are specified as data or attributes on HTML elements
     # if this is 'text', just uses the text of the date element
-    achievement_attribute: str  # if specified as
+    achievement_attribute: str
 
     @classmethod
     def load_from_blob(cls, fp: TextIO) -> List["AchievementSelector"]:
+        """
+        Given a file-like object, loads to this NamedTuple structure
+        """
         return namedtuple_sequence_load(fp, to=cls)
 
     @staticmethod
