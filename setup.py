@@ -7,8 +7,10 @@ requirements = ["bs4", "dateparser", "autotui"]
 with io.open("README.md", encoding="utf-8") as fo:
     long_description = fo.read()
 
+pkg = "old_forums"
+
 setup(
-    name="old_forums",
+    name=pkg,
     version="0.1.0",
     url="https://github.com/seanbreckenridge/old_forums",
     author="Sean Breckenridge",
@@ -17,7 +19,8 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license="http://www.apache.org/licenses/LICENSE-2.0",
-    packages=find_packages(include=["old_forums"]),
+    packages=find_packages(include=[pkg]),
+    package_data={pkg: ["py.typed"]},
     install_requires=requirements,
     classifiers=[
         "License :: OSI Approved :: Apache Software License",
