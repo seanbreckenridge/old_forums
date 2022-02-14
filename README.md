@@ -2,7 +2,7 @@
 
 Parses posts/achievements from random forums I used in the past. I don't use any of these anymore, but they contain random thoughts I had back then, so parsing them so I have access to them
 
-The bit of lib code here pulls CSS selectors from a config file to detect/parse achievement pages. Used in [HPI](https://github.com/seanbreckenridge/HPI/blob/master/my/old_forums.py)
+The bit of lib code here pulls CSS selectors from a config file to detect/parse achievement pages. I use this in my personal [HPI](https://github.com/seanbreckenridge/HPI-personal) modules
 
 The forum posts are loaded from JSON files created by `./selenium_scripts`, while forum achievements are parsed from the raw HTML pages (i.e., by right click and `save as`ing a page, so that its possible to update)
 
