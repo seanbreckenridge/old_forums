@@ -3,8 +3,8 @@ from datetime import datetime
 from typing import TextIO, NamedTuple, List, Iterator, Optional
 
 import dateparser
-from bs4 import BeautifulSoup
-from autotui import namedtuple_sequence_load
+from bs4 import BeautifulSoup, Tag
+from autotui.fileio import namedtuple_sequence_load
 
 
 # As generic of an approach as I can manage without site specific code
@@ -70,6 +70,12 @@ def _remove_tz(dt: Optional[datetime]) -> datetime:
     return datetime.fromtimestamp(dt.timestamp())
 
 
+def select_one_assert(tag: Tag, selector: str) -> Tag:
+    val = tag.select_one(selector)
+    assert val is not None, f"{tag} {selector}"
+    return val
+
+
 @dataclass
 class Achievement:
     site: str
@@ -88,15 +94,16 @@ class Achievement:
             for c in soup.select(sel.achievement_container)
             if c.select(sel.achieved_filter)
         ]:
-            date_el = c.select_one(sel.achievement_earned_at)
-            date_unparsed = (
+            date_el = select_one_assert(c, sel.achievement_earned_at)
+            date_unparsed_text = (
                 date_el.text
                 if sel.achievement_attribute == "text"
-                else date_el.get(sel.achievement_attribute)
-            ).strip()
+                else date_el.get(sel.achievement_attribute, "")
+            )
+            assert isinstance(date_unparsed_text, str)
             yield Achievement(
                 site=sel.site,
-                name=c.select_one(sel.achievement_name).text.strip(),
-                description=c.select_one(sel.achievement_desc).text.strip(),
-                earned_at=_remove_tz(dateparser.parse(date_unparsed)),
+                name=select_one_assert(c, sel.achievement_name).text.strip(),
+                description=select_one_assert(c, sel.achievement_desc).text.strip(),
+                earned_at=_remove_tz(dateparser.parse(date_unparsed_text.strip())),
             )
