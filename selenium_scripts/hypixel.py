@@ -37,7 +37,6 @@ def _parse_post(post_el):
 
 
 def scrape_forum_data(username, driver):
-
     driver.get(HYPIXEL_FORUM.format(username))
     click.secho("Hit enter when the page is ready > ", nl=False, fg="green")
     input()

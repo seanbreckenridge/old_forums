@@ -31,7 +31,6 @@ def _parse_post(post_el):
 
 
 def scrape_forum_data(username, driver):
-
     driver.get(MINECRAFT_FORUM_PAGE.format(username))
     click.secho("Hit enter when the page is ready > ", nl=False, fg="green")
     input()
@@ -39,7 +38,6 @@ def scrape_forum_data(username, driver):
     parsed_posts = []
 
     while True:
-
         time.sleep(5)
 
         page_soup = soup(driver.page_source, "html.parser")
