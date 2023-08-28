@@ -59,7 +59,7 @@ class AchievementSelector(NamedTuple):
         for s in selectors:
             if soup.select(s.detector):
                 return s
-        raise RuntimeError(f"For {soup} Couldn't match any detectors using {selectors}")
+        raise RuntimeError(f"Couldn't match any detectors using {selectors}")
 
 
 # make all timestamps naive, so they're comparable
@@ -88,7 +88,11 @@ class Achievement:
         html_fp: TextIO, selectors: List[AchievementSelector]
     ) -> Iterator["Achievement"]:
         soup = BeautifulSoup(html_fp.read(), "html.parser")
-        sel = AchievementSelector.match_selector(soup, selectors)
+        try:
+            sel = AchievementSelector.match_selector(soup, selectors)
+        except RuntimeError as e:
+            raise RuntimeError(f"Couldn't match any selectors using {selectors} for {html_fp.name}") from e
+
         for c in [
             c
             for c in soup.select(sel.achievement_container)
